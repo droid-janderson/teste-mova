@@ -1,6 +1,7 @@
 <template>
-  <div>
-    <filter-group />
+  <div class="mt-10">
+    <country-info class="mb-16" />
+    <span style="font-size: 18px;">Países Vizinhos</span>
     <div class="container-cards">
       <country-card v-for="card in paginatedItems" :key="card" :card="card" />
     </div>
@@ -17,25 +18,21 @@
 </template>
 
 <script>
-import CountryCard from '../components/Country/CountryCard.vue'
-import FilterGroup from '../components/Filters/FilterGroup.vue'
-
+import CountryCard from '../../components/Country/CountryCard.vue'
+import CountryInfo from '../../components/Country/CountryInfo.vue'
 export default {
-  name: 'IndexPage',
+  components: { CountryInfo, CountryCard },
+
   data () {
     return {
       cards: [],
       pagination: {
         page: 1,
         total: 0,
-        perPage: 10,
+        perPage: 3,
         visible: 7
-      },
+      }
     }
-  },
-  components: {
-    FilterGroup,
-    CountryCard
   },
 
   async mounted () {
@@ -44,7 +41,7 @@ export default {
   methods: {
     async getRegion () {
       try {
-        const response = await this.$axios.$get('/region/Europe')
+        const response = await this.$axios.$get('/all')
 
         this.cards = response
         this.pagination.total = Math.ceil(
@@ -57,14 +54,14 @@ export default {
   },
   computed: {
     paginatedItems () {
-      let page = this.pagination.page - 1;
-      const perPage = this.pagination.perPage;
-      let start = page * perPage;
-      let end = start + perPage;
+      let page = this.pagination.page - 1
+      const perPage = this.pagination.perPage
+      let start = page * perPage
+      let end = start + perPage
 
-      const paginatedItems = this.cards;
+      const paginatedItems = this.cards
 
-      return paginatedItems.slice(start, end);
+      return paginatedItems.slice(start, end)
     }
   }
 }
