@@ -1,8 +1,12 @@
 <template>
   <div>
-    <filter-group />
+    <filter-group @getCountry="getData" />
     <div class="container-cards">
-      <country-card v-for="card in paginatedItems" :key="card" :card="card" />
+      <country-card
+        v-for="card in paginatedItems"
+        :key="card.name"
+        :card="card"
+      />
     </div>
     <div class="container-pagination">
       <v-pagination
@@ -30,7 +34,7 @@ export default {
         total: 0,
         perPage: 10,
         visible: 7
-      },
+      }
     }
   },
   components: {
@@ -39,13 +43,26 @@ export default {
   },
 
   async mounted () {
-    await this.getRegion()
+    await this.getAll()
   },
   methods: {
-    async getRegion () {
+    async getAll () {
       try {
-        const response = await this.$axios.$get('/region/Europe')
+        const response = await this.$axios.$get('/all')
 
+        this.cards = response
+        this.pagination.total = Math.ceil(
+          this.cards.length / this.pagination.perPage
+        )
+      } catch (error) {
+        throw new Error(error)
+      }
+    },
+    async getData (selected ,selectName) {
+      try {
+        const response = await this.$axios.$get(`/${selected}/${selectName}`)
+
+        this.cards = null
         this.cards = response
         this.pagination.total = Math.ceil(
           this.cards.length / this.pagination.perPage
@@ -57,14 +74,14 @@ export default {
   },
   computed: {
     paginatedItems () {
-      let page = this.pagination.page - 1;
-      const perPage = this.pagination.perPage;
-      let start = page * perPage;
-      let end = start + perPage;
+      let page = this.pagination.page - 1
+      const perPage = this.pagination.perPage
+      let start = page * perPage
+      let end = start + perPage
 
-      const paginatedItems = this.cards;
+      const paginatedItems = this.cards
 
-      return paginatedItems.slice(start, end);
+      return paginatedItems.slice(start, end)
     }
   }
 }

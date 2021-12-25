@@ -7,6 +7,7 @@
       outlined
       tile
       color="#6D2080"
+      @click="toHome"
     >
       <img src="../../assets/icons/ArrowBack.svg" alt="Icon Arrow Left" class="mr-5">
       Voltar
@@ -16,6 +17,11 @@
 
 <script>
 export default {
-  name: 'BackButton'
+  name: 'BackButton',
+  methods: {
+    toHome() {
+      this.$router.push({ path: '/' })
+    }
+  }
 }
 </script>

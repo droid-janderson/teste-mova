@@ -4,22 +4,32 @@
       lazy-src="https://picsum.photos/id/11/10/6"
       max-height="258"
       max-width="443"
-      src="https://picsum.photos/id/11/500/300"
+      :src="card.flag"
     ></v-img>
     <div class="info">
-      <span>Nome: Brasil</span>
-      <span>Capital: Brasília</span>
-      <span>Região: <NuxtLink to="/">Região</NuxtLink></span>
-      <span>Sub-região: Sub-região</span>
-      <span>População: XXXXXX</span>
-      <span>Linguas: Português</span>
+      <span>Nome: {{ card.name }}</span>
+      <span>Capital: {{ card.capital }}</span>
+      <span
+        >Região: <NuxtLink to="/">{{ card.region }}</NuxtLink></span
+      >
+      <span>Sub-região: {{ card.subregion }} </span>
+      <span>População: {{ card.population }}</span>
+      <span
+        >Linguas:
+        <span class='mr-1' v-for="(item, index) in card.languages" :key="index">{{
+          item.name
+        }};</span></span
+      >
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'CountryInfo'
+  name: 'CountryInfo',
+  props: {
+    card: Object
+  }
 }
 </script>
 

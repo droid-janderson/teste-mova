@@ -14,11 +14,6 @@ import Header from '../components/Header.vue'
 
 export default {
   name: 'DefaultLayout',
-  data () {
-    return {
-
-    }
-  },
   components: {
     Header,
   }

@@ -1,9 +1,13 @@
 <template>
   <div class="mt-10">
-    <country-info class="mb-16" />
+    <country-info class="mb-16" :card="country" />
     <span style="font-size: 18px;">Países Vizinhos</span>
-    <div class="container-cards">
-      <country-card v-for="card in paginatedItems" :key="card" :card="card" />
+    <!-- <div class="container-cards">
+      <country-card
+        v-for="card in paginatedItems"
+        :key="card.name"
+        :card="card"
+      />
     </div>
     <div class="container-pagination">
       <v-pagination
@@ -13,7 +17,7 @@
         :length="pagination.total"
         :total-visible="pagination.visible"
       ></v-pagination>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -25,28 +29,26 @@ export default {
 
   data () {
     return {
-      cards: [],
+      name: this.$route.params.name,
       pagination: {
         page: 1,
         total: 0,
         perPage: 3,
         visible: 7
-      }
+      },
+      country: {},
     }
   },
 
   async mounted () {
-    await this.getRegion()
+    await this.getCountry()
   },
   methods: {
-    async getRegion () {
+    async getCountry () {
       try {
-        const response = await this.$axios.$get('/all')
+        const response = await this.$axios.$get(`/alpha/${this.name}`)
 
-        this.cards = response
-        this.pagination.total = Math.ceil(
-          this.cards.length / this.pagination.perPage
-        )
+        this.country = response
       } catch (error) {
         throw new Error(error)
       }

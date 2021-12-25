@@ -1,5 +1,10 @@
 <template>
-  <v-card :loading="loading" class="mb-10" style="cursor: pointer;" width="316">
+  <v-card
+    class="mb-10"
+    style="cursor: pointer;"
+    width="316"
+    @click="toCountry()"
+  >
     <v-img height="181" :src="card.flag"></v-img>
   </v-card>
 </template>
@@ -9,6 +14,11 @@ export default {
   name: 'CountryCard',
   props: {
     card: Object
+  },
+  methods:{
+    toCountry() {
+      this.$router.push({ path: `/country/${this.card.alpha2Code}` })
+    }
   }
 }
 </script>
