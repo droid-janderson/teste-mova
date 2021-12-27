@@ -6,7 +6,7 @@
       max-width="443"
       :src="card.flag"
     ></v-img>
-    <div class="info">
+    <div class="info" style="background-color: transparent !important;">
       <span>Nome: {{ card.name }}</span>
       <span>Capital: {{ card.capital }}</span>
       <span
@@ -50,7 +50,6 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  background: #fff !important;
   color: #454545;
   margin-left: 24px;
 }
