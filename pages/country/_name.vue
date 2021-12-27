@@ -2,11 +2,11 @@
   <div class="mt-10">
     <country-info class="mb-16" :card="country" />
     <span style="font-size: 18px;">Países Vizinhos</span>
-    <!-- <div class="container-cards">
+    <div class="container-cards">
       <country-card
-        v-for="card in paginatedItems"
-        :key="card.name"
-        :card="card"
+        v-for="item in paginatedItems"
+        :key="item.name"
+        :card="item"
       />
     </div>
     <div class="container-pagination">
@@ -17,7 +17,7 @@
         :length="pagination.total"
         :total-visible="pagination.visible"
       ></v-pagination>
-    </div> -->
+    </div>
   </div>
 </template>
 
@@ -33,14 +33,15 @@ export default {
       pagination: {
         page: 1,
         total: 0,
-        perPage: 3,
+        perPage: 10,
         visible: 7
       },
       country: {},
+      borders: []
     }
   },
 
-  async mounted () {
+  async created () {
     await this.getCountry()
   },
   methods: {
@@ -49,6 +50,18 @@ export default {
         const response = await this.$axios.$get(`/alpha/${this.name}`)
 
         this.country = response
+
+        if (response.borders) {
+          const items = response.borders
+          for (let i = 0; i < items.length; i++) {
+            let response = await this.$axios.$get(`/alpha/${items[i]}`)
+            this.borders.push(response);
+          }
+        }
+
+        this.pagination.total = Math.ceil(
+          this.borders.length / this.pagination.perPage
+        )
       } catch (error) {
         throw new Error(error)
       }
@@ -61,7 +74,7 @@ export default {
       let start = page * perPage
       let end = start + perPage
 
-      const paginatedItems = this.cards
+      const paginatedItems = this.borders
 
       return paginatedItems.slice(start, end)
     }

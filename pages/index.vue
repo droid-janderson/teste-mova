@@ -29,6 +29,7 @@ export default {
   data () {
     return {
       cards: [],
+      region: this.$route.query.region,
       pagination: {
         page: 1,
         total: 0,
@@ -41,9 +42,12 @@ export default {
     FilterGroup,
     CountryCard
   },
-
   async mounted () {
-    await this.getAll()
+    if (this.region) {
+      await this.getRegion()
+    } else {
+      await this.getAll()
+    }
   },
   methods: {
     async getAll () {
@@ -58,9 +62,24 @@ export default {
         throw new Error(error)
       }
     },
-    async getData (selected ,selectName) {
+    async getData (selected, selectName) {
       try {
         const response = await this.$axios.$get(`/${selected}/${selectName}`)
+
+        this.$router.push({ path: '/' })
+
+        this.cards = null
+        this.cards = response
+        this.pagination.total = Math.ceil(
+          this.cards.length / this.pagination.perPage
+        )
+      } catch (error) {
+        throw new Error(error)
+      }
+    },
+    async getRegion () {
+      try {
+        const response = await this.$axios.$get(`/region/${this.region}`)
 
         this.cards = null
         this.cards = response

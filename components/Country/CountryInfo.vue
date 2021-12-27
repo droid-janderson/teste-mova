@@ -10,15 +10,20 @@
       <span>Nome: {{ card.name }}</span>
       <span>Capital: {{ card.capital }}</span>
       <span
-        >Região: <NuxtLink to="/">{{ card.region }}</NuxtLink></span
+        >Região:
+        <span
+          @click="toRegion(card.region)"
+          style="text-decoration: underline; color: blue; cursor: pointer;"
+          >{{ card.region }}</span
+        ></span
       >
       <span>Sub-região: {{ card.subregion }} </span>
       <span>População: {{ card.population }}</span>
       <span
         >Linguas:
-        <span class='mr-1' v-for="(item, index) in card.languages" :key="index">{{
-          item.name
-        }};</span></span
+        <span class="mr-1" v-for="(item, index) in card.languages" :key="index"
+          >{{ item.name }};</span
+        ></span
       >
     </div>
   </div>
@@ -29,6 +34,12 @@ export default {
   name: 'CountryInfo',
   props: {
     card: Object
+  },
+
+  methods: {
+    toRegion (region) {
+      this.$router.push({ path: '/', query: { region: region } })
+    }
   }
 }
 </script>
