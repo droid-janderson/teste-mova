@@ -30,7 +30,6 @@
       @click="getCountry()"
       >Pesquisar</v-btn
     >
-    <!-- $emit('getCountry', this.selected, this.selectName) -->
   </div>
 </template>
 
@@ -64,7 +63,18 @@ export default {
     },
 
     getCountry () {
-      this.$emit('getCountry', this.selected, this.selectName)
+      if (this.selected == 'lang') {
+        const items = this.cards.filter((item) => {
+          if (item.languages[0].name == this.selectName) {
+            return item.languages;
+          }
+        })
+
+        this.selectName = items[0].languages[0].iso639_1;
+        this.$emit('getCountry', this.selected, this.selectName)
+      } else {
+        this.$emit('getCountry', this.selected, this.selectName)
+      }
     }
   },
 
