@@ -26,7 +26,7 @@
             class="mr-1"
             v-for="(item, index) in card.languages"
             :key="index"
-            >{{ item.name }};</span
+            >{{ item.nativeName }};</span
           ></span
         >
       </div>
