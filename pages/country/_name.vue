@@ -1,6 +1,6 @@
 <template>
-  <div class="mt-10">
-    <country-info class="mb-16" :card="country" />
+  <div class="mt-2">
+    <country-info class="mb-10" :card="country" />
     <span style="font-size: 18px;">Países Vizinhos</span>
     <div class="container-cards">
       <country-card
@@ -88,7 +88,7 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   max-width: 100%;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .container-pagination {

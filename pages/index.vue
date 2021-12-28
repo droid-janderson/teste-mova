@@ -1,6 +1,7 @@
 <template>
   <div>
-    <filter-group @getCountry="getData" />
+    <filter-group class="filter " @getCountry="getData" />
+    <filter-group-responsive class="d-flex d-sm-none" @getCountry="getData" />
     <div class="container-cards">
       <country-card
         v-for="card in paginatedItems"
@@ -23,6 +24,7 @@
 <script>
 import CountryCard from '../components/Country/CountryCard.vue'
 import FilterGroup from '../components/Filters/FilterGroup.vue'
+import FilterGroupResponsive from '../components/Filters/FilterGroupResponsive.vue'
 
 export default {
   name: 'IndexPage',
@@ -40,7 +42,8 @@ export default {
   },
   components: {
     FilterGroup,
-    CountryCard
+    CountryCard,
+    FilterGroupResponsive
   },
   async mounted () {
     if (this.region) {
@@ -112,11 +115,11 @@ export default {
   justify-content: space-between;
   flex-wrap: wrap;
   max-width: 100%;
-  margin-top: 40px;
+  margin-top: 20px;
 }
 
 .container-pagination {
-  width: 100%;
+  min-width: 100%;
   display: flex;
   justify-content: center;
 }
@@ -125,5 +128,11 @@ export default {
   position: fixed;
   bottom: 0;
   margin-bottom: 20px;
+}
+
+@media screen and (min-width: 320px) and (max-width: 600px) {
+.filter {
+  display: none !important;
+}
 }
 </style>

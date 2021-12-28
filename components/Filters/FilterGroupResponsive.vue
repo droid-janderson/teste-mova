@@ -1,6 +1,6 @@
 <template>
-  <div class="d-flex align-center mt-15" style="max-width: 80%;">
-    <div style="width: 316px; color: #6D2080;">
+  <div class="d-flex flex-column justify-content-between align-center mt-4" style="min-height: 200px">
+    <div style="width: 100%; color: #6D2080;">
       <label for="filter" class="ml-3">Filtrar por:</label>
       <v-autocomplete
         id="filter"
@@ -11,7 +11,7 @@
       ></v-autocomplete>
     </div>
     <v-spacer />
-    <div v-if="select" style="width: 316px; color: #6D2080;">
+    <div v-if="select" style="width: 100%; color: #6D2080;">
       <label for="filterPerItem" class="ml-3">Itens</label>
       <v-autocomplete
         id="filterPerItem"
@@ -24,6 +24,7 @@
     <v-spacer />
     <v-btn
       width="156px"
+      class="align-self-end"
       elevation="2"
       color="#6D2080"
       style="color: #fff; font-weight: 400; border-radius: 10px;"
@@ -31,12 +32,11 @@
       >Pesquisar</v-btn
     >
   </div>
-
 </template>
 
 <script>
 export default {
-  name: 'FilterGroup',
+  name: 'FilterResponsive',
   data () {
     return {
       items: ['Região', 'Capital', 'Lingua', 'País', 'Código de ligação'],
@@ -68,15 +68,16 @@ export default {
         return
       } else {
         if (this.selected == 'lang') {
-          const items = this.cards.filter(item => {
+          const items = this.cards.filter((item) => {
             if (item.languages[0].name == this.selectName) {
-              return item.languages
+              return item.languages;
             }
           })
 
-          this.selectName = items[0].languages[0].iso639_1
+          this.selectName = items[0].languages[0].iso639_1;
           this.$emit('getCountry', this.selected, this.selectName)
-        } else {
+        }
+        else {
           this.$emit('getCountry', this.selected, this.selectName)
         }
       }

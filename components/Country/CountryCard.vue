@@ -3,6 +3,7 @@
     class="mb-10"
     style="cursor: pointer;"
     width="316"
+    tile
     @click="toCountry()"
   >
     <v-img height="181" :src="card.flag"></v-img>
