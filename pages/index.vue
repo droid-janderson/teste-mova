@@ -3,11 +3,13 @@
     <filter-group class="filter " @getCountry="getData" />
     <filter-group-responsive class="d-flex d-sm-none" @getCountry="getData" />
     <div class="container-cards">
-      <country-card
-        v-for="card in paginatedItems"
-        :key="card.name"
-        :card="card"
-      />
+    <v-row>
+      <v-col v-for="card in paginatedItems" :key="card.name">
+        <country-card
+          :card="card"
+        />
+      </v-col>
+    </v-row>
     </div>
     <div class="container-pagination">
       <v-pagination

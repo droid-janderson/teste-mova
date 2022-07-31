@@ -3,11 +3,13 @@
     <country-info class="mb-10" :card="country" />
     <span style="font-size: 18px;">Países Vizinhos</span>
     <div class="container-cards">
-      <country-card
-        v-for="item in paginatedItems"
-        :key="item.name"
-        :card="item"
-      />
+      <v-row>
+        <v-col v-for="item in paginatedItems" :key="item.name">
+          <country-card
+            :card="item"
+          />
+        </v-col>
+      </v-row>
     </div>
     <div class="container-pagination">
       <v-pagination
