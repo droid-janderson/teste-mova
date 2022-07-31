@@ -4,7 +4,7 @@
     <span style="font-size: 18px;">Países Vizinhos</span>
     <div class="container-cards">
       <v-row>
-        <v-col v-for="item in paginatedItems" :key="item.name">
+        <v-col v-for="item in paginatedItems" :key="item.name" cols="4">
           <country-card
             :card="item"
           />

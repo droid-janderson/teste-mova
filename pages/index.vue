@@ -4,7 +4,7 @@
     <filter-group-responsive class="d-flex d-sm-none" @getCountry="getData" />
     <div class="container-cards">
     <v-row>
-      <v-col v-for="card in paginatedItems" :key="card.name">
+      <v-col v-for="card in paginatedItems" :key="card.name" cols="4">
         <country-card
           :card="card"
         />
