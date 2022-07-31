@@ -113,9 +113,6 @@ export default {
 
 <style scoped>
 .container-cards {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
   max-width: 100%;
   margin-top: 20px;
 }
